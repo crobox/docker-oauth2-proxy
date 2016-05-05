@@ -4,8 +4,8 @@ FROM golang:1.5.4-alpine
 RUN apk add --no-cache --virtual .build-deps \
 	git \
 	&& go get github.com/sjoerdmulder/oauth2_proxy \
-	&& apk del .build-deps
-#	&& rm -r /go/pkg /go/src
+	&& apk del .build-deps \
+	&& rm -r /go/pkg /go/src
 
 COPY index.html /www/index.html
 
