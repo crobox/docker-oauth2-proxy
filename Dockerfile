@@ -1,14 +1,12 @@
-FROM alpine:3.5
-
-RUN apk --update add curl
+FROM golang:1.8-alpine
 
 #Install oauth2_proxy using go get
-RUN curl -fSL "https://github.com/bitly/oauth2_proxy/releases/download/v2.2/oauth2_proxy-2.2.0.linux-amd64.go1.8.1.tar.gz" -o oauth2_proxy.tar.gz \
- && tar -xzvf oauth2_proxy.tar.gz \
- && mv oauth2_proxy*/oauth2_proxy /bin/ \
- && chmod +x /bin/oauth2_proxy \
- && rm -r oauth2_proxy* \
- && oauth2_proxy -version
+RUN apk add --no-cache --virtual .build-deps \
+	git \
+	&& go get github.com/sjoerdmulder/oauth2_proxy \
+	&& apk del .build-deps \
+	&& rm -r /go/pkg /go/src \
+	&& oauth2_proxy -version
 
 COPY index.html /www/index.html
 
