@@ -2,8 +2,8 @@
 set -e
 
 # Can be used as -e AUTHENTICATED_EMAILS="john@example.org\ndoe@example.org"
-echo -e "$AUTHENTICATED_EMAILS" > /authenticated-emails
+echo -e "$AUTHENTICATED_EMAILS" > /tmp/authenticated-emails
 # Can be used as -e HTPASSWD="john:{SHA}hash=\ndoe:{SHA}hash2="
-echo -e "$HTPASSWD" > /htpasswd
+echo -e "$HTPASSWD" > /tmp/htpasswd
 
-exec oauth2_proxy "$@"
+exec /bin/oauth2_proxy "$@"

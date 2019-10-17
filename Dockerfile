@@ -1,15 +1,6 @@
-FROM golang:1.8-alpine
-
-#Install oauth2_proxy using go get
-RUN apk add --no-cache --virtual .build-deps \
-	git \
-	&& go get github.com/bitly/oauth2_proxy \
-	&& apk del .build-deps \
-	&& rm -r /go/pkg /go/src \
-	&& oauth2_proxy -version
+FROM quay.io/pusher/oauth2_proxy:v4.0.0
 
 COPY index.html /www/index.html
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 4180
